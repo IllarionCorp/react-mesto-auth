@@ -1,0 +1,13 @@
+.fields__submit-button_disable {
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  border-radius: 2px;
+  opacity: 0.2;
+  background-color: inherit;
+  color: #000000;
+}
+
+.fields__submit-button_disable:hover {
+  opacity: 0.2;
+  cursor: default;
+}

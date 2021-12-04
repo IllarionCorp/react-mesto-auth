@@ -1,0 +1,12 @@
+.fields {
+  margin: 54px 36px 0;
+  width: 358px;
+  position: relative;
+}
+
+@media screen and (max-width: 600px) {
+  .fields {
+    margin: 75px 22px 0;
+    width: 238px;
+  }
+}

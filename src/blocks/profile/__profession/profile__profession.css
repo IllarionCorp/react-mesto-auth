@@ -1,0 +1,19 @@
+.profile__profession {
+  margin: 0;
+  grid-area: profession;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__profession {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+  }
+}

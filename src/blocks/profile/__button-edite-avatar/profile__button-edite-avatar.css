@@ -1,0 +1,17 @@
+.profile__button-edite-avatar {
+  width: inherit;
+  height: inherit;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
+  box-sizing: inherit;
+  border-radius: inherit;
+}
+
+.profile__button-edite-avatar:hover {
+  background-image: url(../../../images/big-pen.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.8);
+  transition: 0.3s;
+  cursor: pointer;
+}

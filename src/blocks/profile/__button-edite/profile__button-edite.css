@@ -1,0 +1,27 @@
+.profile__button-edite {
+  display: flex;
+  grid-area: button;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.profile__button-edite:hover {
+  opacity: 0.6;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__button-edite {
+    align-self: center;
+    width: 18px;
+    height: 18px;
+  }
+}

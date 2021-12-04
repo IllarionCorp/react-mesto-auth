@@ -1,0 +1,21 @@
+.fields__input {
+  width: 100%;
+  border: none;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  outline: none;
+  padding: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 13px;
+  margin-bottom: 30px;
+}
+
+.fields__input:last-of-type {
+  margin-bottom: 0;
+}

@@ -1,0 +1,11 @@
+.profile__image-edite {
+  width: 10px;
+  height: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__image-edite {
+    width: 7.5px;
+    height: 7.5px;
+  }
+}
