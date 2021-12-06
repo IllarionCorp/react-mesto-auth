@@ -10,6 +10,8 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditeProfilePopup from "./EditeProfilePopup";
 import EditeAvatarPopup from "./EditeAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import { Route, Routes } from 'react-router-dom';
+import Login from "./Login";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -23,6 +25,7 @@ function App() {
   });
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
+  const [logginIn, setLogginIn] = React.useState(true);
 
   React.useEffect(() => {
     api
@@ -33,6 +36,7 @@ function App() {
       })
       .catch((err) => alert("Смэрт запроса к API: " + err));
   }, []);
+
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -151,15 +155,18 @@ function App() {
         </div>
         </div> */}
       <Header />
-      <Main
-        cards={cards}
-        onEditAvatar={handleEditAvatarClick}
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
-        onCardClick={handleCardClick}
-        onCardLike={handleCardLike}
-        onCardDelete={handleCardDelete}
-      />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/main" element={<Main
+          cards={cards}
+          onEditAvatar={handleEditAvatarClick}
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
+        />} />
+      </Routes>
       <Footer />
     </CurrentUserContext.Provider>
   );
