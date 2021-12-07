@@ -12,6 +12,7 @@ import EditeAvatarPopup from "./EditeAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import { Route, Routes } from 'react-router-dom';
 import Login from "./Login";
+import Register from "./Register";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -156,7 +157,8 @@ function App() {
         </div> */}
       <Header />
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/main" element={<Main
           cards={cards}
           onEditAvatar={handleEditAvatarClick}
