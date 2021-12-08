@@ -40,3 +40,9 @@
 .register__login-link:hover {
   opacity: 0.6;
 }
+
+@media screen and (max-width: 420px) {
+  .register {
+    max-width: 260px;
+  }
+}

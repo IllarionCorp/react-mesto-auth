@@ -18,3 +18,9 @@
   text-align: center;
   color: #ffffff;
 }
+
+@media screen and (max-width: 420px) {
+  .login {
+    max-width: 260px;
+  }
+}

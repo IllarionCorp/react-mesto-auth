@@ -10,9 +10,10 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditeProfilePopup from "./EditeProfilePopup";
 import EditeAvatarPopup from "./EditeAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Login from "./Login";
 import Register from "./Register";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -26,7 +27,7 @@ function App() {
   });
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
-  const [logginIn, setLogginIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(true);
 
   React.useEffect(() => {
     api
@@ -155,11 +156,20 @@ function App() {
           </form>
         </div>
         </div> */}
-      <Header />
+      {/* <Header /> */}
       <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/main" element={<Main
+        <Route path="/register" element={
+          <>
+            <Header title="Войти" link="/login" />
+            <Register />
+          </>
+        } />
+        <Route path="/login" element={
+          <>
+            <Header title="Регистрация" link="/register" />
+            <Login />
+          </>} />
+        {/* <Route path="/main" element={<Main
           cards={cards}
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}
@@ -167,7 +177,22 @@ function App() {
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
-        />} />
+        />} /> */}
+        <Route path="/" element={
+          <ProtectedRoute loggedIn={loggedIn}>
+            <Header title="Выход" link="/login" email="email@yandex.ru" grey="header__nav-link_grey" />
+            <Main
+              cards={cards}
+              onEditAvatar={handleEditAvatarClick}
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+            />
+          </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </CurrentUserContext.Provider>
