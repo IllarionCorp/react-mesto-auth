@@ -22,6 +22,8 @@
 @import url(./blocks/fields/__input-error/_active/fields__input-error_active.css);
 @import url(./blocks/fields/_delete-card/fields_delete-card.css);
 @import url(./blocks/fields/__submit-button/_delete/fields__submit-button_delete.css);
+@import url(./blocks/popup/__img-message/popup__img-message.css);
+@import url(./blocks/popup/__message/popup__message.css);
 /* HEADER */
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);

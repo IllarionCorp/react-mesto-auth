@@ -14,6 +14,8 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
+import InfoTooltipSuccess from "./InfoTooltipSuccess";
+import InfoTooltipFail from "./InfoTooltipFail";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -21,6 +23,8 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
+  const [isInfoSuccessPopupOpen, setIsInfoSuccessPopupOpen] = React.useState(false);
+  const [isInfoFailPopupOpen, setIsInfoFailPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({
     cardInfo: {},
     open: false,
@@ -54,6 +58,45 @@ function App() {
 
   function handleCardClick(card) {
     setSelectedCard({ cardInfo: card, open: true });
+  }
+
+  function handleInfoSuccessClick() {
+    setIsInfoSuccessPopupOpen(true);
+  }
+
+  function handleInfoFailClick() {
+    setIsInfoFailPopupOpen(true);
+  }
+
+  function handleResponseRegister(data) {
+    api
+      .registration(data)
+      .then((res) => {
+        handleInfoSuccessClick();
+        setTimeout(() => {
+          return(
+            <Navigate to="/" />
+          );
+        }, 5000)
+      })
+      .catch((err) => {
+        handleInfoFailClick();
+        console.log(err);
+      })
+  }
+
+  function handleResponseLogin(data) {
+    api
+      .login(data)
+      .then(() => {
+        return(
+          <Navigate to="/" />
+        );
+      })
+      .catch((err) => {
+        handleInfoFailClick();
+        console.log(err);
+      })
   }
 
   function handleCardLike(card) {
@@ -122,27 +165,12 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard({ cardInfo: {}, open: false });
+    setIsInfoSuccessPopupOpen(false);
+    setIsInfoFailPopupOpen(false);
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <EditeProfilePopup
-        isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-        onUpdateUser={handleUpdateUser}
-      />
-      <EditeAvatarPopup
-        isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-        onUpdateAvatar={handleUpdateAvatar}
-      />
-      <AddPlacePopup
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
-        onAddPlace={handleAddCard}
-      />
-      <PopupWithForm id="delete-card" name="Вы уверены?" />
-      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       {/* <div id="delete-card" className="popup">
         <div className="popup__container">
           <button type="button" className="popup__close-button">
@@ -160,14 +188,26 @@ function App() {
       <Routes>
         <Route path="/register" element={
           <>
+            <InfoTooltipSuccess
+              isOpen={isInfoSuccessPopupOpen}
+              onClose={closeAllPopups}
+            />
+            <InfoTooltipFail
+              isOpen={isInfoFailPopupOpen}
+              onClose={closeAllPopups}
+            />
             <Header title="Войти" link="/login" />
-            <Register />
+            <Register onInfoClick={handleResponseRegister} />
           </>
         } />
         <Route path="/login" element={
           <>
+            <InfoTooltipFail
+              isOpen={isInfoFailPopupOpen}
+              onClose={closeAllPopups}
+            />
             <Header title="Регистрация" link="/register" />
-            <Login />
+            <Login onInfoClick={handleResponseLogin} />
           </>} />
         {/* <Route path="/main" element={<Main
           cards={cards}
@@ -180,6 +220,23 @@ function App() {
         />} /> */}
         <Route path="/" element={
           <ProtectedRoute loggedIn={loggedIn}>
+            <EditeProfilePopup
+              isOpen={isEditProfilePopupOpen}
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
+            />
+            <EditeAvatarPopup
+              isOpen={isEditAvatarPopupOpen}
+              onClose={closeAllPopups}
+              onUpdateAvatar={handleUpdateAvatar}
+            />
+            <AddPlacePopup
+              isOpen={isAddPlacePopupOpen}
+              onClose={closeAllPopups}
+              onAddPlace={handleAddCard}
+            />
+            <PopupWithForm id="delete-card" name="Вы уверены?" />
+            <ImagePopup card={selectedCard} onClose={closeAllPopups} />
             <Header title="Выход" link="/login" email="email@yandex.ru" grey="header__nav-link_grey" />
             <Main
               cards={cards}

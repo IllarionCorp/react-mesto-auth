@@ -2,7 +2,7 @@ import React from "react";
 import './Login.css';
 
 
-export default function Login() {
+export default function Login(props) {
   return (
     <div className="login">
       <h2 className="login__header">
@@ -12,7 +12,7 @@ export default function Login() {
         <input className="form__input" name="email" type="email" placeholder="Email" />
         <input className="form__input" name="password" type="text" placeholder="Пароль" />
       </form>
-      <button className="form__submit-button" type="submit" id="login-button">
+      <button className="form__submit-button" type="submit" id="login-button" onClick={props.onInfoClick}>
         Войти
       </button>
     </div>

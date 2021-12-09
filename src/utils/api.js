@@ -2,6 +2,8 @@ class Api {
   constructor(options) {
     this._url = options.url;
     this._headers = options.headers;
+    this._urlAuth = options.urlAuth;
+    this._headersAuth = options._headersAuth;
   }
 
   _checkResponse(res) {
@@ -87,12 +89,47 @@ class Api {
     })
       .then(this._checkResponse)
   }
+
+  registration(data) {
+    return fetch(this._urlAuth + "/signup", {
+      method: 'POST',
+      headers: this._headersAuth,
+      body: JSON.stringify({
+        password: data.password,
+        email: data.email
+      })
+    })
+      .then(this._checkResponse)
+  }
+
+  login() {
+    return fetch(this._urlAuth + "/signin", {
+      method: 'POST',
+      headers: this._headersAuth,
+    })
+      .then(this._checkResponse)
+  }
+
+  checkToken(jwt) {
+    return fetch(this._urlAuth + "/users/me", {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${jwt}`
+      }
+    })
+      .then(this._checkResponse)
+  }
 };
 
 const api = new Api({
   url: "https://mesto.nomoreparties.co/v1/cohort-29",
+  urlAuth: "https://auth.nomoreparties.co/",
   headers: {
     Authorization: "3e854f17-4e78-4803-83c1-6cbecd942932",
+    'Content-Type': 'application/json'
+  },
+  headersAuth: {
     'Content-Type': 'application/json'
   }
 });
