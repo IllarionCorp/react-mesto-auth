@@ -91,6 +91,7 @@ class Api {
   }
 
   registration(data) {
+    console.log(data);
     return fetch(this._urlAuth + "/signup", {
       method: 'POST',
       headers: this._headersAuth,
@@ -102,10 +103,14 @@ class Api {
       .then(this._checkResponse)
   }
 
-  login() {
+  login(data) {
     return fetch(this._urlAuth + "/signin", {
       method: 'POST',
       headers: this._headersAuth,
+      body: JSON.stringify({
+        password: data.password,
+        email: data.email
+      })
     })
       .then(this._checkResponse)
   }
@@ -124,7 +129,7 @@ class Api {
 
 const api = new Api({
   url: "https://mesto.nomoreparties.co/v1/cohort-29",
-  urlAuth: "https://auth.nomoreparties.co/",
+  urlAuth: "https://auth.nomoreparties.co",
   headers: {
     Authorization: "3e854f17-4e78-4803-83c1-6cbecd942932",
     'Content-Type': 'application/json'

@@ -10,7 +10,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditeProfilePopup from "./EditeProfilePopup";
 import EditeAvatarPopup from "./EditeAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
@@ -68,36 +68,22 @@ function App() {
     setIsInfoFailPopupOpen(true);
   }
 
-  function handleResponseRegister(data) {
-    api
-      .registration(data)
-      .then((res) => {
-        handleInfoSuccessClick();
-        setTimeout(() => {
-          return(
-            <Navigate to="/" />
-          );
-        }, 5000)
-      })
-      .catch((err) => {
-        handleInfoFailClick();
-        console.log(err);
-      })
-  }
-
-  function handleResponseLogin(data) {
-    api
-      .login(data)
-      .then(() => {
-        return(
-          <Navigate to="/" />
-        );
-      })
-      .catch((err) => {
-        handleInfoFailClick();
-        console.log(err);
-      })
-  }
+  // function handleResponseRegister(data) {
+  //   api
+  //     .registration(data)
+  //     .then((res) => {
+  //       handleInfoSuccessClick();
+  //       setTimeout(() => {
+  //         return(
+  //           <Navigate to="/" />
+  //         );
+  //       }, 5000)
+  //     })
+  //     .catch((err) => {
+  //       handleInfoFailClick();
+  //       console.log(err);
+  //     })
+  // }
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -160,6 +146,20 @@ function App() {
       .catch((err) => alert("Смэрт новой карточки: " + err));
   }
 
+  // function handleResponseLogin(data) {
+  //   api
+  //     .login(data)
+  //     .then(() => {
+  //       return(
+  //         <Navigate to="/" />
+  //       );
+  //     })
+  //     .catch((err) => {
+  //       handleInfoFailClick();
+  //       console.log(err);
+  //     })
+  // }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -197,7 +197,7 @@ function App() {
               onClose={closeAllPopups}
             />
             <Header title="Войти" link="/login" />
-            <Register onInfoClick={handleResponseRegister} />
+            <Register handleInfoFailClick={handleInfoFailClick} handleInfoSuccessClick={handleInfoSuccessClick} />
           </>
         } />
         <Route path="/login" element={
@@ -207,7 +207,7 @@ function App() {
               onClose={closeAllPopups}
             />
             <Header title="Регистрация" link="/register" />
-            <Login onInfoClick={handleResponseLogin} />
+            <Login handleInfoFailClick={handleInfoFailClick} />
           </>} />
         {/* <Route path="/main" element={<Main
           cards={cards}
