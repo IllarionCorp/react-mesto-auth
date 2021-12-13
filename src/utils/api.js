@@ -138,10 +138,6 @@ const api = new Api({
   headers: {
     Authorization: "3e854f17-4e78-4803-83c1-6cbecd942932",
     'Content-Type': 'application/json'
-  },
-  headersAuth: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
   }
 });
 

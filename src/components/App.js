@@ -219,24 +219,12 @@ function App() {
       <Routes>
         <Route path="/register" element={
           <>
-            <InfoTooltipSuccess
-              isOpen={isInfoSuccessPopupOpen}
-              onClose={closeAllPopups}
-            />
-            <InfoTooltipFail
-              isOpen={isInfoFailPopupOpen}
-              onClose={closeAllPopups}
-            />
             <Header title="Войти" link="/login" />
             <Register handleInfoFailClick={handleInfoFailClick} handleInfoSuccessClick={handleInfoSuccessClick} onClose={closeAllPopups} />
           </>
         } />
         <Route path="/login" element={
           <>
-            <InfoTooltipFail
-              isOpen={isInfoFailPopupOpen}
-              onClose={closeAllPopups}
-            />
             <Header title="Регистрация" link="/register" />
             <Login handleInfoFailClick={handleInfoFailClick} setLoginState={setLoggedIn} setEmail={setIsAuthEmail} />
           </>} />
@@ -283,6 +271,14 @@ function App() {
         />
       </Routes>
       <Footer />
+      <InfoTooltipSuccess
+        isOpen={isInfoSuccessPopupOpen}
+        onClose={closeAllPopups}
+      />
+      <InfoTooltipFail
+        isOpen={isInfoFailPopupOpen}
+        onClose={closeAllPopups}
+      />
     </CurrentUserContext.Provider>
   );
 }

@@ -32,7 +32,7 @@ export default function Card(props) {
     <div className="element">
       <img src={props.card.link} className="element__image" alt="Пользовательское изображение" onClick={handleClick} />
       <button type="button" className={cardDeleteButtonClassName} onClick={handleDeleteClick}>
-        <img src={trash} className="element__trash-image" alt="Иконка для удаления карточки" />
+        <img src={trash} className="element__trash-image" alt={props.card.name} />
       </button>
       <div className="element__footer">
         <h2 className="element__place-name">{props.card.name}</h2>

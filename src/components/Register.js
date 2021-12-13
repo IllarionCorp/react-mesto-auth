@@ -37,7 +37,6 @@ export default function Register(props) {
       .catch((err) => {
         props.handleInfoFailClick();
         console.log(err);
-        props.onClose();
       })
 }
 
@@ -50,7 +49,7 @@ export default function Register(props) {
       <form className="form" id="sign-up" onSubmit={handleSubmit}>
         <input className="form__input" name="email" type="email" placeholder="Email" onChange={handleSetEmail} value={email} required />
         <input className="form__input" name="password" type="text" placeholder="Пароль" onChange={handleSetPassword} value={password} required />
-        <button className="form__submit-button" type="submit" id="register-button" onClick={props.onInfoClick} >
+        <button className="form__submit-button" type="submit" id="register-button">
         Зарегистрироваться
       </button>
       </form>

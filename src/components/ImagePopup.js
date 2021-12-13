@@ -10,7 +10,7 @@ export default function ImagePopup(props) {
             id="image-closed" src={closeIcon} className="popup__close-icon" alt="крестик для закрытия диалогового окна"
           />
         </button>
-        <img src={props.card.cardInfo.link} className="popup__image" alt="Изображение в карточке" />
+        <img src={props.card.cardInfo.link} className="popup__image" alt={props.card.cardInfo.name} />
         <p className="popup__label">{props.card.cardInfo.name}</p>
       </div>
     </div>);
