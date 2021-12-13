@@ -1,12 +1,14 @@
 import React from "react";
 import './Register.css';
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../utils/api";
+
 
 export default function Register(props) {
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const navigate = useNavigate();
 
   function handleSetEmail(evt) {
     setEmail(evt.target.value);
@@ -15,7 +17,7 @@ export default function Register(props) {
   function handleSetPassword(evt) {
     setPassword(evt.target.value);
   }
-  
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -28,17 +30,17 @@ export default function Register(props) {
       .then(() => {
         props.handleInfoSuccessClick();
         setTimeout(() => {
-          return(
-            <Navigate to="/" />
-          );
-        }, 5000)
+          navigate("/");
+          props.onClose();
+        }, 1000)
       })
       .catch((err) => {
         props.handleInfoFailClick();
         console.log(err);
+        props.onClose();
       })
 }
-  
+
 
   return (
     <div className="register">
@@ -46,8 +48,8 @@ export default function Register(props) {
         Регистрация
       </h2>
       <form className="form" id="sign-up" onSubmit={handleSubmit}>
-        <input className="form__input" name="email" type="email" placeholder="Email" onChange={handleSetEmail} required />
-        <input className="form__input" name="password" type="text" placeholder="Пароль" onChange={handleSetPassword} required />
+        <input className="form__input" name="email" type="email" placeholder="Email" onChange={handleSetEmail} value={email} required />
+        <input className="form__input" name="password" type="text" placeholder="Пароль" onChange={handleSetPassword} value={password} required />
         <button className="form__submit-button" type="submit" id="register-button" onClick={props.onInfoClick} >
         Зарегистрироваться
       </button>

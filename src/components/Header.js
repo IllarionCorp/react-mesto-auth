@@ -9,7 +9,7 @@ export default function Header(props) {
         <p className="header__nav-user">
           {props.email}
         </p>
-        <Link to={props.link} className={"header__nav-link " + props.grey}>
+        <Link to={props.link} className={"header__nav-link " + props.grey} onClick={props.exite}>
           {props.title}
         </Link>
       </nav>

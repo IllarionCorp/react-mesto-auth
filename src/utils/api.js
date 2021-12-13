@@ -90,14 +90,16 @@ class Api {
       .then(this._checkResponse)
   }
 
-  registration(data) {
-    console.log(data);
-    return fetch(this._urlAuth + "/signup", {
+  registration({password, email}) {
+    return fetch("https://auth.nomoreparties.co/signup", {
       method: 'POST',
-      headers: this._headersAuth,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
-        password: data.password,
-        email: data.email
+        password,
+        email
       })
     })
       .then(this._checkResponse)
@@ -106,7 +108,10 @@ class Api {
   login(data) {
     return fetch(this._urlAuth + "/signin", {
       method: 'POST',
-      headers: this._headersAuth,
+      headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
       body: JSON.stringify({
         password: data.password,
         email: data.email
@@ -115,12 +120,12 @@ class Api {
       .then(this._checkResponse)
   }
 
-  checkToken(jwt) {
+  checkToken() {
     return fetch(this._urlAuth + "/users/me", {
       method: 'GET',
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${jwt}`
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
       }
     })
       .then(this._checkResponse)
@@ -135,11 +140,12 @@ const api = new Api({
     'Content-Type': 'application/json'
   },
   headersAuth: {
+    'Accept': 'application/json',
     'Content-Type': 'application/json'
   }
 });
 
+
+
 export default api;
-
-
 

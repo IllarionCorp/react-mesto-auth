@@ -1,12 +1,12 @@
 import React from "react";
 import "./Login.css";
 import api from "../utils/api";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Login(props) {
   const refEmail = React.useRef();
   const refPassword = React.useRef();
-
+  const navigate = useNavigate();
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -15,8 +15,17 @@ export default function Login(props) {
         email: refEmail.current.value,
         password: refPassword.current.value,
       })
-      .then(() => {
-        return <Navigate to="/" />;
+      .then((data) => {
+        console.log(data);
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          props.setLoginState(true);
+          props.setEmail(refEmail.current.value);
+          navigate("/");
+        } else {
+          props.handleInfoFailClick();
+          console.log("Ошибка при входе");
+        }
       })
       .catch((err) => {
         props.handleInfoFailClick();
@@ -43,7 +52,6 @@ export default function Login(props) {
           placeholder="Пароль"
           ref={refPassword}
           required
-          minLength="8"
         />
         <button className="form__submit-button" type="submit" id="login-button">
           Войти

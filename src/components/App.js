@@ -10,7 +10,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditeProfilePopup from "./EditeProfilePopup";
 import EditeAvatarPopup from "./EditeAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
@@ -30,8 +30,11 @@ function App() {
     open: false,
   });
   const [currentUser, setCurrentUser] = React.useState({});
+  const [authEmail, setIsAuthEmail] = React.useState('');
   const [cards, setCards] = React.useState([]);
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+
+  const nav = useNavigate();
 
   React.useEffect(() => {
     api
@@ -42,6 +45,16 @@ function App() {
       })
       .catch((err) => alert("Смэрт запроса к API: " + err));
   }, []);
+
+  React.useEffect(() => {
+    handleTokenCheck()
+  }, []);
+
+  React.useEffect(() => {
+    if(loggedIn) {
+      nav("/");
+    }
+  }, [loggedIn, nav])
 
 
   function handleEditAvatarClick() {
@@ -146,6 +159,24 @@ function App() {
       .catch((err) => alert("Смэрт новой карточки: " + err));
   }
 
+  function handleTokenCheck() {
+    const jwt = localStorage.getItem("jwt");
+    if(jwt) {
+      api.checkToken(jwt)
+        .then((res) => {
+          setLoggedIn(true);
+          setIsAuthEmail(res.data.email);
+        })
+        .catch((err) => console.log(`СМЭРТ токена: ${err}`))
+    }
+  }
+
+  function handleExite() {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
+    nav('/login');
+  }
+
   // function handleResponseLogin(data) {
   //   api
   //     .login(data)
@@ -197,7 +228,7 @@ function App() {
               onClose={closeAllPopups}
             />
             <Header title="Войти" link="/login" />
-            <Register handleInfoFailClick={handleInfoFailClick} handleInfoSuccessClick={handleInfoSuccessClick} />
+            <Register handleInfoFailClick={handleInfoFailClick} handleInfoSuccessClick={handleInfoSuccessClick} onClose={closeAllPopups} />
           </>
         } />
         <Route path="/login" element={
@@ -207,7 +238,7 @@ function App() {
               onClose={closeAllPopups}
             />
             <Header title="Регистрация" link="/register" />
-            <Login handleInfoFailClick={handleInfoFailClick} />
+            <Login handleInfoFailClick={handleInfoFailClick} setLoginState={setLoggedIn} setEmail={setIsAuthEmail} />
           </>} />
         {/* <Route path="/main" element={<Main
           cards={cards}
@@ -237,7 +268,7 @@ function App() {
             />
             <PopupWithForm id="delete-card" name="Вы уверены?" />
             <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-            <Header title="Выход" link="/login" email="email@yandex.ru" grey="header__nav-link_grey" />
+            <Header title="Выход" link="/login" email={authEmail} exite={handleExite} grey="header__nav-link_grey" />
             <Main
               cards={cards}
               onEditAvatar={handleEditAvatarClick}
