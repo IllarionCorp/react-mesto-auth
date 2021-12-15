@@ -217,6 +217,14 @@ function App() {
         </div>
         </div> */}
       {/* <Header /> */}
+      <InfoTooltipSuccess
+        isOpen={isInfoSuccessPopupOpen}
+        onClose={closeAllPopups}
+      />
+      <InfoTooltipFail
+        isOpen={isInfoFailPopupOpen}
+        onClose={closeAllPopups}
+      />
       <Routes>
         <Route path="/register" element={
           <>
@@ -272,14 +280,6 @@ function App() {
         />
       </Routes>
       <Footer />
-      <InfoTooltipSuccess
-        isOpen={isInfoSuccessPopupOpen}
-        onClose={closeAllPopups}
-      />
-      <InfoTooltipFail
-        isOpen={isInfoFailPopupOpen}
-        onClose={closeAllPopups}
-      />
     </CurrentUserContext.Provider>
   );
 }
