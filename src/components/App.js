@@ -16,6 +16,7 @@ import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import InfoTooltipSuccess from "./InfoTooltipSuccess";
 import InfoTooltipFail from "./InfoTooltipFail";
+import auth from "../utils/auth";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -162,7 +163,7 @@ function App() {
   function handleTokenCheck() {
     const jwt = localStorage.getItem("jwt");
     if(jwt) {
-      api.checkToken(jwt)
+      auth.checkToken(jwt)
         .then((res) => {
           setLoggedIn(true);
           setIsAuthEmail(res.data.email);

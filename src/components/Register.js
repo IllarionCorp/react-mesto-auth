@@ -1,7 +1,7 @@
 import React from "react";
 import './Register.css';
 import { Link, useNavigate } from "react-router-dom";
-import api from "../utils/api";
+import auth from "../utils/auth";
 
 
 export default function Register(props) {
@@ -22,7 +22,7 @@ export default function Register(props) {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(password)
-    api
+    auth
       .registration({
        password: password,
        email: email

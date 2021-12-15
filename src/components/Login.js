@@ -1,7 +1,8 @@
 import React from "react";
 import "./Login.css";
-import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
+import auth from "../utils/auth";
+
 
 export default function Login(props) {
   const refEmail = React.useRef();
@@ -10,7 +11,7 @@ export default function Login(props) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    api
+    auth
       .login({
         email: refEmail.current.value,
         password: refPassword.current.value,
