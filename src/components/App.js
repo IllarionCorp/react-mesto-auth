@@ -52,7 +52,7 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    if(loggedIn) {
+    if(loggedIn === true) {
       nav("/");
     }
   }, [loggedIn, nav])
