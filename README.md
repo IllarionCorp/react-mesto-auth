@@ -12,7 +12,7 @@ SPA сайт с аутентефикацией пользователей для
 ## Системные требования
 react v17.0.2  
 react-dom v17.0.2
-react-router-dom v6.1.0 **ВАЖНО**
+react-router-dom v6.1.0 **ВАЖНО**  
 react-scripts 4.0.3
 
 ## 
