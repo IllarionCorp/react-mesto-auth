@@ -5,7 +5,6 @@ SPA сайт с аутентефикацией пользователей для
 ## Технологии
 - ReactRouter
 - JSX
-- Webpack
 - REST API
 - JWT
 - Git
